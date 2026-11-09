@@ -1,13 +1,307 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-<title>Gitflow PRÁCTICA</title>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Moderna y Vistosa</title>
+    <!-- Importación de Google Fonts para tipografía premium -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Variables de color adaptadas a fondo claro y tonos celestes */
+        :root {
+            --primary: #0ea5e9;       /* Celeste principal */
+            --primary-glow: #0284c7;  /* Celeste oscuro para hover */
+            --accent: #38bdf8;        /* Celeste claro brillante */
+            --bg-light: #ffffff;      /* Fondo blanco puro */
+            --text-dark: #0f172a;      /* Texto oscuro para contraste */
+            --text-muted: #64748b;    /* Texto secundario suavizado */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        /* Elipses decorativas con brillo de fondo celeste sutil */
+        .glow-bg {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(14, 165, 233, 0.1) 0%, rgba(255,255,255,0) 70%);
+            top: -10%;
+            right: -10%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .glow-bg-2 {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.08) 0%, rgba(255,255,255,0) 70%);
+            bottom: -10%;
+            left: -10%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Barra de navegación */
+        header {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 5%;
+            width: 100%;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: -0.5px;
+            background: linear-gradient(to right, var(--primary), var(--primary-glow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav a {
+            color: var(--text-dark);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        /* Sección principal (Hero) */
+        .hero {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 5%;
+            text-align: center;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .badge {
+            background: rgba(14, 165, 233, 0.06);
+            padding: 0.5rem 1rem;
+            border-radius: 99px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            border: 1px solid rgba(14, 165, 233, 0.15);
+            margin-bottom: 2rem;
+            color: var(--primary-glow);
+            text-transform: uppercase;
+            animation: fadeIn 1s ease;
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -2px;
+            margin-bottom: 1.5rem;
+            max-width: 800px;
+            background: linear-gradient(135deg, var(--text-dark) 0%, var(--primary-glow) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h1 span {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 3rem;
+            line-height: 1.6;
+        }
+
+        /* Contenedor de botones interactivos */
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.85rem 2rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 20px rgba(14, 165, 233, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-glow);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(14, 165, 233, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(14, 165, 233, 0.04);
+            color: var(--primary-glow);
+            border: 1px solid rgba(14, 165, 233, 0.15);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(14, 165, 233, 0.08);
+            transform: translateY(-2px);
+        }
+
+        /* Sección de Tarjetas Destacadas (Glassmorphism en tonos claros) */
+        .features {
+            position: relative;
+            z-index: 10;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1100px;
+            margin: 4rem auto;
+            padding: 0 5%;
+            width: 100%;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(14, 165, 233, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 10px 30px rgba(14, 165, 233, 0.03);
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(14, 165, 233, 0.3);
+            box-shadow: 0 15px 35px rgba(14, 165, 233, 0.08);
+        }
+
+        .card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            color: var(--primary-glow);
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* Pie de página */
+        footer {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(14, 165, 233, 0.08);
+        }
+
+        /* Animaciones */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Adaptabilidad para pantallas móviles */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; letter-spacing: -1px; }
+            .features { grid-template-columns: 1fr; gap: 1rem; margin: 2rem auto; }
+            header { flex-direction: column; gap: 1rem; padding: 1.5rem; }
+            nav a { margin: 0 1rem; }
+            .cta-group { flex-direction: column; width: 100%; }
+            .btn { text-align: center; }
+        }
+    </style>
 </head>
-
 <body>
-<h1>Introducción</h1>
-<p>Hola mundo, este proyecto ha sido creado por <b>Ana Montero, Clara Frigolet</b> & Manuel Martínez</p>
-</body>
 
+    <!-- Fondos de brillo difuminados en celeste -->
+    <div class="glow-bg"></div>
+    <div class="glow-bg-2"></div>
+
+    <!-- Menú Superior -->
+    <header>
+        <div class="logo">IES Martínez Montañés</div>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main class="hero">
+        <div class="badge">Los mejores alumnos</div>
+        <h1>Ana Montero, Clara Frigolet & <span>Manuel Martínez</span></h1>
+        <p class="subtitle">Creamos siguiendo la filosofía de gitflow</p>
+        
+        <div class="cta-group">
+            <a href="#" class="btn btn-primary">Opción 1</a>
+            <a href="#" class="btn btn-secondary">Opción 2</a>
+        </div>
+    </main>
+
+    <!-- Bloques Informativos Inferiores -->
+    <section class="features">
+        <div class="card">
+            <h3>Feature</h3>
+            <p>Todas las funciones nuevas deben residir en su propia rama, que se puede enviar al repositorio central para copia de seguridad/colaboración. Sin embargo, en lugar de ramificarse de main, las ramas feature utilizan la rama develop como rama primaria. Cuando una función está terminada, se vuelve a fusionar en develop. Las funciones no deben interactuar nunca directamente con main.</p>
+        </div>
+        <div class="card">
+            <h3>Release</h3>
+            <p>Cuando develop haya adquirido suficientes funciones para una publicación (o se acerque una fecha de publicación predeterminada), debes bifurcar una rama release (o de publicación) a partir de develop. Al crear esta rama, se inicia el siguiente ciclo de publicación, por lo que no pueden añadirse nuevas funciones una vez pasado este punto (en esta rama solo deben producirse las soluciones de errores, la generación de documentación y otras tareas orientadas a la publicación).</p>
+        </div>
+        <div class="card">
+            <h3>Hotfix</h3>
+            <p>as ramas de mantenimiento, de corrección o de hotfix sirven para reparar rápidamente las publicaciones de producción. Las ramas hotfix son muy similares a las ramas release y feature, salvo por el hecho de que se basan en la rama main y no en la develop. Esta es la única rama que debería bifurcarse directamente a partir de main.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        &copy; 2026-2027. Puesta en Producción Segura.
+    </footer>
+
+</body>
 </html>
