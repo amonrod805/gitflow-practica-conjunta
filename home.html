@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio - Mi Aplicación</title>
+    <style>
+        /* Estilos Globales y Paleta Clara */
+        :root {
+            --bg-principal: #f8f9fa;
+            /* Gris muy claro */
+            --bg-card: #ffffff;
+            /* Blanco puro */
+            --texto-oscuro: #212529;
+            /* Gris oscuro para lectura */
+            --texto-mutado: #6c757d;
+            /* Gris medio para detalles */
+            --borde: #e9ecef;
+            /* Líneas de división sutiles */
+            --interaccion: #4f46e5;
+            /* Color de acento (azul/morado sutil) */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-principal);
+            color: var(--texto-oscuro);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Menú Lateral (Sidebar) */
+        .sidebar {
+            width: 250px;
+            background-color: var(--bg-card);
+            border-right: 1px solid var(--borde);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 2rem 1.5rem;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--texto-oscuro);
+            margin-bottom: 2rem;
+        }
+
+        .menu-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .menu-links a {
+            text-decoration: none;
+            color: var(--texto-mutated);
+            font-weight: 500;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            display: block;
+            transition: all 0.2s ease;
+        }
+
+        .menu-links a:hover,
+        .menu-links a.active {
+            background-color: var(--bg-principal);
+            color: var(--interaccion);
+        }
+
+        .logout-btn {
+            text-decoration: none;
+            color: #dc3545;
+            /* Rojo suave para salir */
+            font-weight: 500;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #f8d7da;
+            transition: background 0.2s;
+        }
+
+        .logout-btn:hover {
+            background-color: #f8d7da;
+        }
+
+        /* Contenido Principal */
+        .main-content {
+            flex: 1;
+            padding: 2rem 3rem;
+            overflow-y: auto;
+        }
+
+        /* Barra Superior (Header) */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--borde);
+        }
+
+        .bienvenida h1 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .bienvenida p {
+            color: var(--texto-mutado);
+            font-size: 0.95rem;
+        }
+
+        .usuario-perfil {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            background-color: var(--borde);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: var(--texto-mutado);
+        }
+
+        /* Rejilla de Tarjetas (Cards Grid) */
+        .grid-dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--borde);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+        }
+
+        .card h3 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--texto-mutado);
+            margin-bottom: 0.5rem;
+        }
+
+        .card .metrica {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--texto-oscuro);
+        }
+
+        /* Sección de Contenido de Ejemplo */
+        .seccion-reciente {
+            background-color: var(--bg-card);
+            border: 1px solid var(--borde);
+            border-radius: 12px;
+            padding: 2rem;
+        }
+
+        .seccion-reciente h2 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .tabla-vacia {
+            border: 2px dashed var(--borde);
+            border-radius: 8px;
+            padding: 3rem;
+            text-align: center;
+            color: var(--texto-mutado);
+        }
+
+        /* Estilo para el Footer*/
+        .footer-delgado {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            left: 250px;
+            background-color: var(--bg-principal);
+            border-top: 1px solid var(--borde);
+            padding: 1rem 3rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--texto-mutado);
+            letter-spacing: 0.02em;
+            z-index: 5;
+        }
+
+        /* Adaptabilidad para Móviles */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--borde);
+                padding: 1rem;
+            }
+
+            .menu-links {
+                flex-direction: row;
+                justify-content: space-around;
+            }
+
+            .logout-btn {
+                display: none;
+                /* Se puede mover a otro lado en móvil */
+            }
+
+            .main-content {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Menú de Navegación Lateral -->
+    <aside class="sidebar">
+        <div>
+            <div class="logo">PPS
+            </div>
+            <ul class="menu-links">
+                <li><a href="#" class="active">Inicio</a></li>
+                <li><a href="#">Proyectos</a></li>
+                <li><a href="#">Tareas</a></li>
+                <li><a href="#">Estadísticas</a></li>
+                <li><a href="#">Ajustes</a></li>
+            </ul>
+        </div>
+        <a href="#" class="logout-btn">Cerrar Sesión</a>
+    </aside>
+
+    <!-- Contenedor del Contenido Principal -->
+    <main class="main-content">
+
+        <!-- Cabecera del Dashboard -->
+        <header class="header">
+            <div class="bienvenida">
+                <h1>Bienvenido</h1>
+                <p>¡Qué bueno tenerte de vuelta! Aquí está el resumen de hoy.</p>
+            </div>
+            <div class="usuario-perfil">
+                <span>Juan Pérez</span>
+                <div class="avatar">JP</div>
+            </div>
+        </header>
+
+        <!-- Tarjetas de Información Rápida (Métricas) -->
+        <section class="grid-dashboard">
+            <div class="card">
+                <h3>Tareas Pendientes</h3>
+                <div class="metrica">5</div>
+            </div>
+            <div class="card">
+                <h3>Proyectos Activos</h3>
+                <div class="metrica">3</div>
+            </div>
+            <div class="card">
+                <h3>Mensajes nuevos</h3>
+                <div class="metrica">12</div>
+            </div>
+        </section>
+
+        <!-- Área de Trabajo Principal (Ejemplo: Actividad Reciente) -->
+        <section class="seccion-reciente">
+            <h2>Actividad Reciente</h2>
+            <div class="tabla-vacia">
+                No has hecho ningún cambio todavía
+            </div>
+        </section>
+
+        <footer class="footer-delgado">
+            PPS - Actividad con Gitflow Grupal - 2026
+        </footer>
+
+    </main>
+
+</body>
+
+</html>
