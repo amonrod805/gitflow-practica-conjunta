@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio - Mi Aplicación</title>
+    <style>
+        /* Estilos Globales y Paleta de Colores Renovada */
+        :root {
+            --bg-principal: #f3f4f6;
+            --bg-card: #ffffff;
+            --texto-oscuro: #1f2937;
+            --texto-mutado: #6b7280;
+            --borde: #e5e7eb;
+            
+            /* Colores de marca y acentos */
+            --primario: #6366f1;
+            --primario-hover: #4f46e5;
+            --primario-suave: #eeefff;
+            
+            /* Colores semánticos para métricas y estados */
+            --exito: #10b981;
+            --exito-bg: #ecfdf5;
+            --alerta: #f59e0b;
+            --alerta-bg: #fffbe6;
+            --info: #3b82f6;
+            --info-bg: #eff6ff;
+            --peligro: #ef4444;
+            --peligro-bg: #fef2f2;
+
+            --sombra-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --sombra-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        /* Corrección del error de tipeo previo (--texto-mutated -> var(--texto-mutado)) */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-principal);
+            color: var(--texto-oscuro);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Menú Lateral (Sidebar) */
+        .sidebar {
+            width: 260px;
+            background-color: var(--bg-card);
+            border-right: 1px solid var(--borde);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 2rem 1.25rem;
+            box-shadow: var(--sombra-sm);
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--primario);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding-left: 0.5rem;
+        }
+
+        .menu-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+
+        .menu-links a {
+            text-decoration: none;
+            color: var(--texto-mutado);
+            font-weight: 500;
+            padding: 0.75rem 1rem;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.2s ease;
+        }
+
+        .menu-links a svg {
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .menu-links a:hover {
+            background-color: var(--primario-suave);
+            color: var(--primario);
+        }
+
+        .menu-links a.active {
+            background-color: var(--primario);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
+        }
+
+        .logout-btn {
+            text-decoration: none;
+            color: var(--peligro);
+            font-weight: 600;
+            padding: 0.75rem 1rem;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            border: 1px solid var(--borde);
+            background-color: var(--peligro-bg);
+            transition: all 0.2s ease;
+        }
+
+        .logout-btn:hover {
+            background-color: var(--peligro);
+            color: #ffffff;
+        }
+
+        /* Contenido Principal */
+        .main-content {
+            flex: 1;
+            padding: 2rem 3rem 5rem 3rem;
+            overflow-y: auto;
+        }
+
+        /* Barra Superior (Header) */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--borde);
+            gap: 1rem;
+        }
+
+        .bienvenida h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--texto-oscuro);
+            margin-bottom: 0.25rem;
+        }
+
+        .bienvenida p {
+            color: var(--texto-mutado);
+            font-size: 0.95rem;
+        }
+
+        /* Buscador integrado */
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: var(--bg-card);
+            border: 1px solid var(--borde);
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            gap: 0.5rem;
+            width: 280px;
+            box-shadow: var(--sombra-sm);
+        }
+
+        .search-box input {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 0.9rem;
+            color: var(--texto-oscuro);
+            background: transparent;
+        }
+
+        .usuario-perfil {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: var(--bg-card);
+            padding: 0.4rem 0.8rem 0.4rem 0.4rem;
+            border-radius: 30px;
+            border: 1px solid var(--borde);
+            box-shadow: var(--sombra-sm);
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primario), #a855f7);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #ffffff;
+            font-size: 0.9rem;
+        }
+
+        .usuario-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .usuario-nombre {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .usuario-rol {
+            font-size: 0.75rem;
+            color: var(--texto-mutado);
+        }
+
+        /* Rejilla de Tarjetas (Cards Grid) */
+        .grid-dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--borde);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: var(--sombra-sm);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--sombra-md);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .card h3 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--texto-mutado);
+            font-weight: 600;
+        }
+
+        .card-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-icon svg {
+            width: 20px;
+            height: 20px;
+            stroke-width: 2;
+            stroke: currentColor;
+            fill: none;
+        }
+
+        .card .metrica {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--texto-oscuro);
+            line-height: 1;
+        }
+
+        .card-footer-info {
+            margin-top: 0.75rem;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .badge-up {
+            color: var(--exito);
+            font-weight: 600;
+        }
+
+        /* Variantes de Color por Tarjeta */
+        .card.tareas .card-icon { background-color: var(--alerta-bg); color: var(--alerta); }
+        .card.proyectos .card-icon { background-color: var(--primario-suave); color: var(--primario); }
+        .card.mensajes .card-icon { background-color: var(--info-bg); color: var(--info); }
+        .card.completadas .card-icon { background-color: var(--exito-bg); color: var(--exito); }
+
+        /* Sección de Actividad Reciente */
+        .seccion-reciente {
+            background-color: var(--bg-card);
+            border: 1px solid var(--borde);
+            border-radius: 16px;
+            padding: 1.75rem;
+            box-shadow: var(--sombra-sm);
+        }
+
+        .seccion-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .seccion-reciente h2 {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .btn-ver-todo {
+            color: var(--primario);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .btn-ver-todo:hover {
+            text-decoration: underline;
+        }
+
+        /* Lista de Actividades (Reemplazo de la tabla vacía) */
+        .lista-actividad {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .actividad-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.85rem 1rem;
+            border-radius: 10px;
+            border: 1px solid var(--borde);
+            background-color: var(--bg-principal);
+            transition: background-color 0.2s;
+        }
+
+        .actividad-item:hover {
+            background-color: #ffffff;
+        }
+
+        .actividad-detalles {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .actividad-punto {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .actividad-texto p {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .actividad-texto span {
+            font-size: 0.8rem;
+            color: var(--texto-mutado);
+        }
+
+        .tag-estado {
+            padding: 0.25rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .tag-completado { background-color: var(--exito-bg); color: var(--exito); }
+        .tag-revision { background-color: var(--alerta-bg); color: var(--alerta); }
+        .tag-nuevo { background-color: var(--info-bg); color: var(--info); }
+
+        /* Footer */
+        .footer-delgado {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            left: 260px;
+            background-color: var(--bg-card);
+            border-top: 1px solid var(--borde);
+            padding: 0.8rem 3rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--texto-mutado);
+            z-index: 5;
+        }
+
+        /* Adaptabilidad para Móviles */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--borde);
+                padding: 1rem;
+            }
+
+            .menu-links {
+                flex-direction: row;
+                overflow-x: auto;
+            }
+
+            .menu-links a span {
+                display: none; /* Oculta texto en pantallas muy chicas */
+            }
+
+            .logout-btn {
+                display: none;
+            }
+
+            .main-content {
+                padding: 1.5rem 1.5rem 5rem 1.5rem;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .search-box {
+                width: 100%;
+            }
+
+            .footer-delgado {
+                left: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Menú de Navegación Lateral -->
+    <aside class="sidebar">
+        <div>
+            <div class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                <span>PPS App</span>
+            </div>
+            <ul class="menu-links">
+                <li>
+                    <a href="#" class="active">
+                        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                        <span>Inicio</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                        <span>Proyectos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+                        <span>Tareas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                        <span>Estadísticas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                        <span>Ajustes</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <a href="#" class="logout-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+            <span>Cerrar Sesión</span>
+        </a>
+    </aside>
+
+    <!-- Contenedor del Contenido Principal -->
+    <main class="main-content">
+
+        <!-- Cabecera del Dashboard -->
+        <header class="header">
+            <div class="bienvenida">
+                <h1>Bienvenido de nuevo, Juan 👋</h1>
+                <p>Aquí está el resumen del estado general de tus proyectos hoy.</p>
+            </div>
+
+            <!-- Buscador -->
+            <div class="search-box">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="text" placeholder="Buscar proyectos, tareas...">
+            </div>
+
+            <!-- Usuario Perfil con Rol -->
+            <div class="usuario-perfil">
+                <div class="avatar">JP</div>
+                <div class="usuario-info">
+                    <span class="usuario-nombre">Juan Pérez</span>
+                    <span class="usuario-rol">Administrador</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Tarjetas de Información Rápida (Métricas con Iconos y Estados) -->
+        <section class="grid-dashboard">
+            <div class="card tareas">
+                <div class="card-header">
+                    <h3>Tareas Pendientes</h3>
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    </div>
+                </div>
+                <div class="metrica">5</div>
+                <div class="card-footer-info">
+                    <span class="badge-up">2 requieren atención hoy</span>
+                </div>
+            </div>
+
+            <div class="card proyectos">
+                <div class="card-header">
+                    <h3>Proyectos Activos</h3>
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                    </div>
+                </div>
+                <div class="metrica">3</div>
+                <div class="card-footer-info">
+                    <span>En progreso regular</span>
+                </div>
+            </div>
+
+            <div class="card mensajes">
+                <div class="card-header">
+                    <h3>Mensajes nuevos</h3>
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                    </div>
+                </div>
+                <div class="metrica">12</div>
+                <div class="card-footer-info">
+                    <span class="badge-up">+4 respecto a ayer</span>
+                </div>
+            </div>
+
+            <div class="card completadas">
+                <div class="card-header">
+                    <h3>Finalizadas este mes</h3>
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                    </div>
+                </div>
+                <div class="metrica">28</div>
+                <div class="card-footer-info">
+                    <span class="badge-up">↑ 12% este mes</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Área de Trabajo Principal (Actividad Reciente con Items Reales) -->
+        <section class="seccion-reciente">
+            <div class="seccion-header">
+                <h2>Actividad Reciente</h2>
+                <a href="#" class="btn-ver-todo">Ver todo →</a>
+            </div>
+
+            <div class="lista-actividad">
+                <div class="actividad-item">
+                    <div class="actividad-detalles">
+                        <div class="actividad-punto" style="background-color: var(--exito);"></div>
+                        <div class="actividad-texto">
+                            <p>Actualización del flujo Gitflow</p>
+                            <span>Subido a la rama main por @jperez</span>
+                        </div>
+                    </div>
+                    <span class="tag-estado tag-completado">Completado</span>
+                </div>
+
+                <div class="actividad-item">
+                    <div class="actividad-detalles">
+                        <div class="actividad-punto" style="background-color: var(--alerta);"></div>
+                        <div class="actividad-texto">
+                            <p>Revisión de Código Pull Request #14</p>
+                            <span>Asignado a @maria_dev</span>
+                        </div>
+                    </div>
+                    <span class="tag-estado tag-revision">En Revisión</span>
+                </div>
+
+                <div class="actividad-item">
+                    <div class="actividad-detalles">
+                        <div class="actividad-punto" style="background-color: var(--info);"></div>
+                        <div class="actividad-texto">
+                            <p>Diseño del Dashboard responsive</p>
+                            <span>Creado recientemente</span>
+                        </div>
+                    </div>
+                    <span class="tag-estado tag-nuevo">Nuevo</span>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer-delgado">
+            PPS - Actividad con Gitflow Grupal - 2026
+        </footer>
+
+    </main>
+
+</body>
+
+</html>
