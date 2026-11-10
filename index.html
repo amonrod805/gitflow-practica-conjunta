@@ -286,15 +286,15 @@
     <section class="features">
         <div class="card">
             <h3>Feature</h3>
-            <p>Todas las funciones nuevas deben residir en su propia rama, que se puede enviar al repositorio central para copia de seguridad/colaboración. Sin embargo, en lugar de ramificarse de main, las ramas feature utilizan la rama develop como rama primaria. Cuando una función está terminada, se vuelve a fusionar en develop. Las funciones no deben interactuar nunca directamente con main.</p>
+            <p>Rama dedicada para crear nuevas funcionalidades del proyecto</p>
         </div>
         <div class="card">
             <h3>Release</h3>
-            <p>Cuando develop haya adquirido suficientes funciones para una publicación (o se acerque una fecha de publicación predeterminada), debes bifurcar una rama release (o de publicación) a partir de develop. Al crear esta rama, se inicia el siguiente ciclo de publicación, por lo que no pueden añadirse nuevas funciones una vez pasado este punto (en esta rama solo deben producirse las soluciones de errores, la generación de documentación y otras tareas orientadas a la publicación).</p>
+            <p>Rama dedicada a publicar los cambios realizados en la rama develop</p>
         </div>
         <div class="card">
             <h3>Hotfix</h3>
-            <p>as ramas de mantenimiento, de corrección o de hotfix sirven para reparar rápidamente las publicaciones de producción. Las ramas hotfix son muy similares a las ramas release y feature, salvo por el hecho de que se basan en la rama main y no en la develop. Esta es la única rama que debería bifurcarse directamente a partir de main.</p>
+            <p>Rama dedicada a solucionar errores urgentes del proyecto</p>
         </div>
     </section>
 
