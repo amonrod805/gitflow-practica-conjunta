@@ -1,0 +1,54 @@
+*   6136601 Merge tag 'v0.3' into develop
+|\  
+| *   0844423 Merge branch 'release/v0.3' Documentacion añadida
+| |\  
+| |/  
+|/|   
+* | 9b1a577 Documentación del proyecto actualizada
+* | 0b5da16 Merge tag 'v0.2' into develop
+|\| 
+| *   1e026d8 Merge branch 'hotfix/v0.2' Rama hotfix con los cambios urgentes hechos
+| |\  
+| | * c10604b Cambios extremadamente urgentes en las definiciones de conceptos, ya solucionados
+| |/  
+| *   7e9fb96 Merge branch 'release/v0.1.1'
+| |\  
+| |/  
+|/|   
+* |   91ad5ec Merge pull request #3 from amonrod805/feature/home_usuario_ajustes
+|\ \  
+| * | 79bbe9c Actualizado el código de la página home del usuario para mejorar la funcionalidad
+* | |   f2eda81 Merge tag 'v0.1' into develop
+|\ \ \  
+| |/ /  
+|/| /   
+| |/    
+| *   3bad77f Merge branch 'release/v0.1'
+| |\  
+| * | 65fdd27 Carpeta oculta de obsidian eliminada
+| * | 542e8b4 README editado
+| * | 117052e README actualizado
+* | | 0ae714f Realizada la home page para cuando un usuario realice el login y entre a la web.
+| |/  
+|/|   
+* |   d1fa021 Merge branch 'feature/login' into develop
+|\ \  
+| * | a08d3dc Login creado en HTML
+* | |   2b9ba2e Merge branch 'feature/indexP' into develop Please enter a commit message to explain why this merge is necessary,
+|\ \ \  
+| |/ /  
+|/| |   
+| * |   5446264 Merge branch
+| |\ \  
+| |/ /  
+|/| |   
+* | | 026dd71 Index eliminado
+* | | f1c5fbc Readme eliminado de la rama develop
+| * | 2fc0485 Un index más profesional hecho con IA
+| * | 6a68f54 Entrego un Index principal
+|/ /  
+* / dfbb2cb Esto es el indez principal con el que vamos a trabajar
+|/  
+| * 5bc4dba Realizada la home page para cuando un usuario realice el login y entre a la web.
+|/  
+* db4cc0d Initial commit
